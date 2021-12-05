@@ -7,7 +7,6 @@ from d3rlpy.metrics.scorer import evaluate_on_environment
 from d3rlpy.metrics.scorer import soft_opc_scorer
 
 # Import Data sets
-
 from d3rlpy.datasets import get_atari
 
 # Import Algo
@@ -29,7 +28,7 @@ def main(args):
 
     device = None if args.gpu is None else Device(args.gpu)
 
-    # logging for debugging
+    # Show Logs
     print("=========================")
     print("Q FUNQ :  ", args.q_func)
     print("USE GPU : ", device)
@@ -38,8 +37,7 @@ def main(args):
     print("EPOCHS (FQE) : ", args.epochs_fqe)
     print("=========================")
 
-    # Train CQL on given environment/dataset from pybullet (default is hopper-bullet-mixed-v0)
-
+    # Train DiscreteCQL
     cql = DiscreteCQL(critic_learning_rate=3e-4,
               temp_learning_rate=1e-4,
               n_frames=4,
@@ -54,25 +52,15 @@ def main(args):
             n_epochs=args.epochs_cql,
             save_interval=10,
             scorers={
-                # Returns scorer function of evaluation on environment (mean_episode_return)
-                # Average reward vs training steps
                 'environment': evaluate_on_environment(env, epsilon=0.05),
-
-                # Returns mean estimated action-values at the initial states
-                # Estimated Q vs training steps
                 'init_value': initial_state_value_estimation_scorer,
-
-                # Returns true q values
-                # True Q vs training steps
                 "true_q_value": true_q_value_scorer
             },
-
-            # log files are consistently named without timestamp (allows overwriting)
             with_timestamp=False,
             verbose=True,
             experiment_name=f"DiscreteCQL_{args.dataset}_{args.seed}")
 
-    # Train OPE (FQE) to evaluate the trained policy
+    # Train OPE (FQE) for trained policy evaluation
     fqe = FQE(algo=cql,
               n_epochs=args.epochs_fqe,
               q_func_factory='qr',
@@ -82,18 +70,10 @@ def main(args):
             n_epochs=args.epochs_fqe,
             eval_episodes=dataset.episodes,
             scorers={
-                # Returns mean estimated action-values at the initial states
-                # Estimated Q vs training steps
                 'init_value': initial_state_value_estimation_scorer,
-
-                # Returns Soft Off-Policy Classification metrics
                 'soft_opc': soft_opc_scorer(600),
-
-                # Returns true q values
                 "true_q_value": true_q_value_scorer
             },
-
-            # log files are consistently named without timestamp (allows overwriting)
             with_timestamp=False,
             verbose=True,
             experiment_name=f"FQE_{args.dataset}_{args.seed}")
@@ -106,8 +86,8 @@ if __name__ == '__main__':
                         default='breakout-mixed-v0')
 
     parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--epochs_cql', type=int, default=1)  # epochs for cql being passed in as arg
-    parser.add_argument('--epochs_fqe', type=int, default=1)  # epochs for fqe being passed in as arg
+    parser.add_argument('--epochs_cql', type=int, default=1)
+    parser.add_argument('--epochs_fqe', type=int, default=1)
     parser.add_argument('--q-func',
                         type=str,
                         default='mean',
