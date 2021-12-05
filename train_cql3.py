@@ -7,10 +7,10 @@ from d3rlpy.metrics.scorer import evaluate_on_environment
 from d3rlpy.metrics.scorer import soft_opc_scorer
 
 # Import Data sets
-from d3rlpy.datasets import get_atari
+from d3rlpy.datasets import get_pybullet
 
 # Import Algo
-from d3rlpy.algos import DiscreteCQL
+from d3rlpy.algos import CQL
 from d3rlpy.gpu import Device
 from d3rlpy.ope import FQE
 from sklearn.model_selection import train_test_split
@@ -19,7 +19,7 @@ import argparse
 
 def main(args):
     # Get dataset & environment
-    dataset, env = get_atari(args.dataset) 
+    dataset, env = get_pybullet(args.dataset) 
 
     d3rlpy.seed(args.seed)
     env.seed(args.seed)
@@ -37,11 +37,10 @@ def main(args):
     print("EPOCHS (FQE) : ", args.epochs_fqe)
     print("=========================")
 
-    # Train DiscreteCQL
-    cql = DiscreteCQL(n_frames=4,
-              q_func_factory=args.q_func,
-              scaler='pixel',
+    # Train CQL
+    cql = CQL(q_func_factory=args.q_func,
               batch_size=256,
+              n_action_samples=10,
               use_gpu=device)
 
     cql.fit(train_episodes,
@@ -55,7 +54,7 @@ def main(args):
             },
             with_timestamp=False,
             verbose=True,
-            experiment_name=f"DiscreteCQL_{args.dataset}_{args.seed}")
+            experiment_name=f"CQL{args.dataset}_{args.seed}")
 
     # Train OPE (FQE) for trained policy evaluation
     fqe = FQE(algo=cql,
@@ -80,7 +79,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset',
                         type=str,
-                        default='breakout-mixed-v0')
+                        default='hopper-bullet-mixed-v0')
 
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--epochs_cql', type=int, default=1)
