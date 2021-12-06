@@ -24,7 +24,7 @@ After the installation process you can execute the file **`train_cql.py`**
    * Alternatively, directly specify the number of epochs `python train_cql.py --epochs_cql 50 --epochs_fqe 50`
 
 
-Here's an example of how to run this using Google [Colab](https://colab.research.google.com/drive/1Srmj8vf_EOhYHC9bVDixY3PuO7H-LAas?usp=sharing)
+Here's an example of how to run this using Google [Colab](https://colab.research.google.com/drive/1Srmj8vf_EOhYHC9bVDixY3PuO7H-LAas?usp=sharing).
 
 ### Example using 50 epochs:
 ![img.png](plot1.png)
