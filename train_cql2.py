@@ -12,7 +12,7 @@ from d3rlpy.datasets import get_atari
 # Import Algo
 from d3rlpy.algos import DiscreteCQL
 from d3rlpy.gpu import Device
-from d3rlpy.ope import FQE
+from d3rlpy.ope import DiscreteFQE
 from sklearn.model_selection import train_test_split
 import argparse
 
@@ -38,7 +38,8 @@ def main(args):
     print("=========================")
 
     # Train DiscreteCQL
-    cql = DiscreteCQL(n_frames=4,
+    cql = DiscreteCQL(n_epochs=args.epochs_cql
+              n_frames=4,
               q_func_factory=args.q_func,
               scaler='pixel',
               batch_size=256,
@@ -61,6 +62,10 @@ def main(args):
     fqe = FQE(algo=cql,
               n_epochs=args.epochs_fqe,
               q_func_factory='qr',
+              learning_rate=1e-4,
+              scaler='pixel',
+              n_frames=4,
+              discrete_action=True,
               use_gpu=device)
 
     fqe.fit(dataset.episodes,
@@ -80,7 +85,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset',
                         type=str,
-                        default='breakout-mixed-v0')
+                        default='breakout-expert-v0')
 
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--epochs_cql', type=int, default=1)
