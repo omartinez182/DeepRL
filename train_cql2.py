@@ -59,7 +59,7 @@ def main(args):
             experiment_name=f"DiscreteCQL_{args.dataset}_{args.seed}")
 
     # Train OPE (FQE) for trained policy evaluation
-    fqe = FQE(algo=cql,
+    fqe = DiscreteFQE(algo=cql,
               n_epochs=args.epochs_fqe,
               q_func_factory='qr',
               learning_rate=1e-4,
