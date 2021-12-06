@@ -14,7 +14,7 @@ The code used to start the project has been forked from [d3rlpy](https://github.
  `pip install git+https://github.com/takuseno/d4rl-pybullet`
 3. Installation of dependencies:
  `pip install Cython numpy` 
- `pip install -e`
+ `pip install -e .`
 
 ## Getting Started 
 
