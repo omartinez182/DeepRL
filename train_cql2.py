@@ -38,7 +38,7 @@ def main(args):
     print("=========================")
 
     # Train DiscreteCQL
-    cql = DiscreteCQL(n_epochs=args.epochs_cql
+    cql = DiscreteCQL(n_epochs=args.epochs_cql,
               n_frames=4,
               q_func_factory=args.q_func,
               scaler='pixel',
