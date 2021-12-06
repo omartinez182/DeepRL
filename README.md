@@ -20,7 +20,9 @@ The code used to start the project has been forked from [d3rlpy](https://github.
 
 After the installation process you can execute the file **`train_cql.py`**
 
-   * You can specify how many  epochs like this: `python train_cql.py --epochs_cql 50 --epochs_fqe 50` 
+   * Using the default number of epochs (1) `python train_cql.py` 
+   * Alternatively, directly specify the number of epochs `python train_cql.py --epochs_cql 50 --epochs_fqe 50`
+
 
 Here's an example of how to run this using Google [Colab](https://colab.research.google.com/drive/1Srmj8vf_EOhYHC9bVDixY3PuO7H-LAas?usp=sharing)
 
