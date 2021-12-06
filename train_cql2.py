@@ -1,3 +1,4 @@
+import argparse
 import d3rlpy
 
 # Scorers
@@ -28,15 +29,6 @@ def main(args):
 
     device = None if args.gpu is None else Device(args.gpu)
 
-    # Show Logs
-    print("=========================")
-    print("Q FUNQ :  ", args.q_func)
-    print("USE GPU : ", device)
-    print("DATASET : ", args.dataset)
-    print("EPOCHS (CQL) : ", args.epochs_cql)
-    print("EPOCHS (FQE) : ", args.epochs_fqe)
-    print("=========================")
-
     # Train DiscreteCQL
     cql = DiscreteCQL(n_epochs=args.epochs_cql,
               n_frames=4,
@@ -46,6 +38,7 @@ def main(args):
               use_gpu=device)
 
     cql.fit(train_episodes,
+            n_epochs=args.epochs_cql,
             eval_episodes=test_episodes,
             save_interval=10,
             scorers={
@@ -59,6 +52,7 @@ def main(args):
 
     # Train OPE (FQE) for trained policy evaluation
     fqe = DiscreteFQE(algo=cql,
+              n_epochs=args.epochs_fqe,
               q_func_factory='qr',
               learning_rate=1e-4,
               scaler='pixel',
@@ -67,6 +61,7 @@ def main(args):
               use_gpu=device)
 
     fqe.fit(dataset.episodes,
+            n_epochs=args.epochs_fqe,
             eval_episodes=dataset.episodes,
             scorers={
                 'init_value': initial_state_value_estimation_scorer,
