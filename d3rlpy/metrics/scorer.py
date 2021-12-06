@@ -69,6 +69,20 @@ def _make_batches(
         batch = TransitionMiniBatch(transitions, n_frames)
         yield batch
 
+def true_qv_scorer(algo: AlgoProtocol, episodes: List[Episode]) -> float:
+    for episode in episodes:
+        for batch in _make_batches(episode, WINDOW_SIZE, algo.n_frames):
+            n_action = algo.predict([batch.next_observations[0]])
+            n_values = algo.predict_value(
+                [batch.next_observations[0]], n_action
+            )
+            mask = (1.0 - np.asarray(batch.terminals)).reshape(-1)
+            rewards = np.asarray(batch.next_rewards).reshape(-1)
+            if algo.reward_scaler:
+                rewards = algo.reward_scaler.transform_numpy(rewards)
+            target = rewards + algo.gamma * cast(np.ndarray, n_values) * mask
+    return float(np.mean(target))
+
 
 def td_error_scorer(algo: AlgoProtocol, episodes: List[Episode]) -> float:
     r"""Returns average TD error.
