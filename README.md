@@ -8,7 +8,6 @@ The code used to start the project has been forked from [d3rlpy](https://github.
 --- 
 
 ## Installation
----
 
 1. First, you'll need to clone this repository: `git clone https://github.com/omartinez182/DeepRL`
 2. Then, you need to install **pybullet** from the source, you can do that by doing:
@@ -18,13 +17,10 @@ The code used to start the project has been forked from [d3rlpy](https://github.
  `pip install -e`
 
 ## Getting Started 
----
 
 After the installation process you can execute the file **`train_cql.py`**
 
    * You can specify how many  epochs like this: `python train_cql.py --epochs_cql 50 --epochs_fqe 50` 
----
-
 
 ### Example of how to run it in [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Srmj8vf_EOhYHC9bVDixY3PuO7H-LAas?usp=sharing) 
 
@@ -32,8 +28,6 @@ After the installation process you can execute the file **`train_cql.py`**
 ![img.png](plot1.png)
 ![img.png](plot2.png)
 
-
----
 ## More Examples
 
 For more examples, of offline reinforcement learning implementations see d3rlpy's github [repository](https://github.com/takuseno/d3rlpy).
