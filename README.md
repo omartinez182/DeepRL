@@ -4,10 +4,12 @@ This repository provides access to an offline reinforcement learning implementat
 If you'd like to understand more about RL and Offline RL, please see my blog post on the topic [here](https://medium.com/@omartinez182/reinforcement-learning-for-everybody-656bedf669d9).
 
 The code used to start the project has been forked from [d3rlpy](https://github.com/takuseno/d3rlpy), you can find more details on the citation at the bottom.
+ 
+--- 
 
-### Installation
-
+## Installation
 ---
+
 1. First, you'll need to clone this repository: `git clone https://github.com/omartinez182/DeepRL`
 2. Then, you need to install **pybullet** from the source, you can do that by doing:
  `pip install git+https://github.com/takuseno/d4rl-pybullet`
@@ -15,20 +17,21 @@ The code used to start the project has been forked from [d3rlpy](https://github.
  `pip install Cython numpy` 
  `pip install -e`
 
-# Getting Started 
+## Getting Started 
+---
 
 After the installation process you can execute the file **`train_cql.py`**
 
    * You can specify how many  epochs like this: `python train_cql.py --epochs_cql 50 --epochs_fqe 50` 
-
-
-
-### Plots of an example using 50 epochs:
-![img.png](plot1.png)
-![img.png](plot2.png)
+---
 
 
 ### Example of how to run it in [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Srmj8vf_EOhYHC9bVDixY3PuO7H-LAas?usp=sharing) 
+
+### Example using 50 epochs:
+![img.png](plot1.png)
+![img.png](plot2.png)
+
 
 ---
 ## More Examples
@@ -38,7 +41,7 @@ For more examples, of offline reinforcement learning implementations see d3rlpy'
 ## Citation
 
 ```
-@InProceedings{authors:
+{authors:
 - family-names: "Seno"
   given-names: "Takuma"
 title: "d3rlpy: An offline deep reinforcement learning library"
