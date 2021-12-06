@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 
 
 def main(args):
-    dataset, env = get_pybullet(args.dataset) 
+    dataset, env = get_pybullet(args.dataset)
 
     d3rlpy.seed(args.seed)
     env.seed(args.seed)
@@ -39,7 +39,6 @@ def main(args):
             with_timestamp=False,
             verbose=True,
             experiment_name=f"CQL{args.dataset}_{args.seed}")
-
 
     # Train OPE (FQE) for trained policy evaluation
     fqe = FQE(algo=cql,
