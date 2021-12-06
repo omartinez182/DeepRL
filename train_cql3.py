@@ -47,7 +47,6 @@ def main(args):
               q_func_factory='qr',
               use_gpu=device)
     fqe.fit(dataset.episodes,
-            n_epochs=args.epochs_fqe,
             eval_episodes=dataset.episodes,
             scorers={
                 'init_value': initial_state_value_estimation_scorer,
