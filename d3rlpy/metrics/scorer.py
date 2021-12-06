@@ -69,6 +69,7 @@ def _make_batches(
         batch = TransitionMiniBatch(transitions, n_frames)
         yield batch
 
+
 def true_qv_scorer(algo: AlgoProtocol, episodes: List[Episode]) -> float:
     for episode in episodes:
         for batch in _make_batches(episode, WINDOW_SIZE, algo.n_frames):
