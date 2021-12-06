@@ -47,7 +47,6 @@ def main(args):
 
     cql.fit(train_episodes,
             eval_episodes=test_episodes,
-            n_epochs=args.epochs_cql,
             save_interval=10,
             scorers={
                 'environment': evaluate_on_environment(env, epsilon=0.05),
@@ -60,7 +59,6 @@ def main(args):
 
     # Train OPE (FQE) for trained policy evaluation
     fqe = DiscreteFQE(algo=cql,
-              n_epochs=args.epochs_fqe,
               q_func_factory='qr',
               learning_rate=1e-4,
               scaler='pixel',
@@ -69,7 +67,6 @@ def main(args):
               use_gpu=device)
 
     fqe.fit(dataset.episodes,
-            n_epochs=args.epochs_fqe,
             eval_episodes=dataset.episodes,
             scorers={
                 'init_value': initial_state_value_estimation_scorer,
