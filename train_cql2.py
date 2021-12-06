@@ -2,7 +2,7 @@ import d3rlpy
 
 # Scorers
 from d3rlpy.metrics.scorer import initial_state_value_estimation_scorer
-from d3rlpy.metrics.scorer import true_q_value_scorer # Custom True Q value scorer
+from d3rlpy.metrics.scorer import true_qv_scorer
 from d3rlpy.metrics.scorer import evaluate_on_environment
 from d3rlpy.metrics.scorer import soft_opc_scorer
 
@@ -51,7 +51,7 @@ def main(args):
             scorers={
                 'environment': evaluate_on_environment(env, epsilon=0.05),
                 'init_value': initial_state_value_estimation_scorer,
-                "true_q_value": true_q_value_scorer
+                "true_q_value": true_qv_scorer
             },
             with_timestamp=False,
             verbose=True,
@@ -71,7 +71,7 @@ def main(args):
             scorers={
                 'init_value': initial_state_value_estimation_scorer,
                 'soft_opc': soft_opc_scorer(600),
-                "true_q_value": true_q_value_scorer
+                "true_q_value": true_qv_scorer
             },
             with_timestamp=False,
             verbose=True,
