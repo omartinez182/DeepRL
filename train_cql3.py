@@ -29,6 +29,7 @@ def main(args):
               use_gpu=device)
     cql.fit(train_episodes,
             eval_episodes=test_episodes,
+            n_epochs=args.epochs_cql,
             save_interval=10,
             scorers={
                 'environment': evaluate_on_environment(env, epsilon=0.05),
