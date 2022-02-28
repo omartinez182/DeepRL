@@ -3,7 +3,7 @@ This repository provides access to an offline reinforcement learning implementat
 
 If you'd like to understand more about RL and Offline RL, please see my blog post on the topic [here](https://medium.com/@omartinez182/reinforcement-learning-for-everybody-656bedf669d9).
 
-The code used to start the project has been forked from [d3rlpy](https://github.com/takuseno/d3rlpy), you can find more details on the citation at the bottom.
+The main contribution to the implementation is an update to the scorers.py to add a true Q value scorer function and a demonstration of how to implement it to train an agent on the PyBullet dataset/env. The code used to start the project has been forked from [d3rlpy](https://github.com/takuseno/d3rlpy), you can find more details on the citation at the bottom.
  
 --- 
 
